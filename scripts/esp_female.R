@@ -1,9 +1,8 @@
-#' Clean binary variables
+#' Clean gender
 #'
-#' @description This function takes a variable coded "Yes"/"No" and converts it to either
-#' a logical variable (the default, where "Yes" is converted to TRUE) or to a factor.
+#' @description Clean the survey's gender variable into a binary measure for female respondents.
 #'
-#' @useage esp_binary(.data)
+#' @useage esp_female(.data, currentVar, newVar, logical = TRUE)
 #'
 #' @param .data A data frame or tibble
 #' @param currentVar The current source variable
@@ -13,11 +12,10 @@
 #' @return A data frame or a tibble with the newly created variable.
 #'
 #' @importFrom dplyr %>%
-#' @importFrom dplyr rename
-#' @importFrom dplyr select
+#' @importFrom dplyr mutate
 #'
 #' @export
-esp_binary <- function(.data, currentVar, newVar, logical = TRUE){
+esp_female <- function(.data, currentVar, newVar, logical = TRUE){
 
   # save parameters to list
   paramList <- as.list(match.call())
@@ -50,12 +48,14 @@ esp_binary <- function(.data, currentVar, newVar, logical = TRUE){
   # recode variable
   if (logical == TRUE){
 
-    .data <- dplyr::mutate(.data, !!createVarQ := ifelse(!!currVar == "Yes", TRUE, FALSE))
+    .data <- dplyr::mutate(.data, !!createVarQ := ifelse(!!currVar == "female", TRUE, FALSE))
 
   }
   else if (logical == FALSE){
 
-    .data <- dplyr::mutate(.data, !!createVarQ := as.factor(!!currVar))
+    .data %>%
+      dplyr::mutate(!!createVarQ := ifelse(!!currVar == "female", "Yes", "No")) %>%
+      dplyr::mutate(!!createVarQ := as.factor(!!createVar)) -> .data
 
   }
 
