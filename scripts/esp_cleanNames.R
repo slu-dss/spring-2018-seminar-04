@@ -1,20 +1,32 @@
 #' Clean names
-#' 
-#' @description Clean the survey output's names in a consistent way. 
-#' 
+#'
+#' @description Clean the survey output's names in a consistent way.
+#'
 #' @useage esp_cleanNames(.data)
-#' 
+#'
 #' @param .data A data frame or tibble
-#' 
+#'
 #' @return A cleaned data set with standardized names.
-#' 
+#'
 #' @importFrom dplyr %>%
 #' @importFrom dplyr rename
 #' @importFrom dplyr select
-#' 
+#'
 #' @export
 esp_cleanNames <- function(.data){
-  
+
+  # define variables as NULL
+  X = Identification.Number = Full.Name = First.Name = Last.Name = Gender =
+    Spanish.Course = SPAN.1010.section = SPAN.1020.section = SPAN.2010.section =
+    Class.Status = Previous.study = Taken.at.SLU = Placement = Placement.score =
+    Native.language = Other.native.language = Home.language = Other.home.language =
+    Major = Other.major = Minor = Other.minor = Interested.major.minor =
+    Community.interaction = Work.learning = Attitude.Hispanic.community =
+    Attitude.previous.course = Attitude.learning.Spanish = Interest.FL =
+    Desire = Employment.use = In.class.feeling = Speaking.Spanish.feeling =
+    Cultures.different = Proficient.useful = NULL
+
+  # clean variable names
   .data %>%
     dplyr::select(-X) %>%
     dplyr::rename(id = Identification.Number) %>%
@@ -52,6 +64,6 @@ esp_cleanNames <- function(.data){
     dplyr::rename(speaking = Speaking.Spanish.feeling) %>%
     dplyr::rename(cultures = Cultures.different) %>%
     dplyr::rename(proficient = Proficient.useful) -> .data
-  
+
   return(.data)
 }
