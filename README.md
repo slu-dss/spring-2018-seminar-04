@@ -3,7 +3,7 @@ spring-2018-seminar-04 <img src="https://raw.githubusercontent.com/slu-dss/fall-
 
 ### Repository Contents
 This repository contains files for:
--   `spring-2018-seminar-04.Rproj` - R project for seminar
+-   `spring-2018-seminar-04.Rproj` - R project for seminar-04
 -   `students.csv`- seminar data
 -   `.gitignore`
 -   `LICENSE`
